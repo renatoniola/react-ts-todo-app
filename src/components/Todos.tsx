@@ -11,7 +11,14 @@ function Todos() {
     const { todos, setTodos } = useTodosContext();
 
     const removeTodo = (todoToRemove: number) => {
-       console.log('todoToRemove: ', todoToRemove);
+
+       const newTodos = todos.filter((todo: TodoType) => todo.id !== todoToRemove);
+       localStorage.setItem("todos", JSON.stringify(newTodos));
+       setTodos(newTodos);
+    }
+
+    const editTodo = (todoItem: number) => {
+        console.log('edit', todoItem);
     }
 
     return (
@@ -46,7 +53,7 @@ function Todos() {
                                     </td>
 
                                     <td className="px-6 py-4 flex justify-end">
-                                        <LinkIcon onClick={() => removeTodo(item.id) } name="Edit">
+                                        <LinkIcon onClick={() => editTodo(item.id) } name="Edit">
                                             <Icon type="edit"></Icon>
                                         </LinkIcon>
                                         <LinkIcon onClick={() => removeTodo(item.id) } name="Delete">

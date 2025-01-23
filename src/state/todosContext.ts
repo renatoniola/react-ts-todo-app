@@ -1,15 +1,10 @@
 import { createContext, useContext } from 'react'
-import TodoType from '../types/TodoType';
-
-type TodosContextType = {
-    todos: TodoType[];
-    setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
-}
+import { TodosContextType } from '../types/TodoType';
 
 export const TodosContext = createContext<TodosContextType | null>(null);
 
 export function useTodosContext() {
-    
+
     const todos = useContext(TodosContext);
 
     if (todos === undefined) {

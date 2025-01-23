@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTodosContext } from '../state/todosContext';
 import H1 from './H1';
+import { getHighestId } from '../Services/Util';
 
 
 
@@ -10,7 +11,18 @@ function FormAdd() {
 
     function handleSubmit(e: any) {
         e.preventDefault();
-        setTodos([...todos, form]);
+
+        let titleStatus = form.title === '' ? true : false;
+        let statusStatus = form.status === '' ? true : false;
+
+        setBlur({...blurState, status: statusStatus, title: titleStatus});
+        if(titleStatus || statusStatus) {
+            return
+        }
+
+        let newTodos = [...todos, {...form, id: getHighestId(todos) + 1}];
+        localStorage.setItem("todos", JSON.stringify(newTodos));
+        setTodos(newTodos);
     }
 
     const [form, setForm] = useState({
@@ -33,7 +45,6 @@ function FormAdd() {
        
     }
 
-    // TODO:  
     function handleChange(e: any) {
         setForm({
             ...form,

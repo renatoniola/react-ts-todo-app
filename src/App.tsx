@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Todos from './components/Todos'
 import Box from './components/Box'
@@ -8,34 +8,17 @@ import TodoType from './types/TodoType'
 
 function App() {
 
-  const [todos, setTodos] = useState<TodoType[]>(
-    [
-      {
-        id: 1,
-        icon: 'sun',
-        title: 'Do the laundry2',
-        status: 'postponed',
-      },
-      {
-        id: 2,
-        icon: 'moon',
-        title: 'Do the laundry',
-        status: 'postponed',
-      },
-      {
-        id: 3,
-        icon: 'sun',
-        title: 'Do the laundry',
-        status: 'postponed',
-      },
-      {
-        id: 4,
-        icon: 'moon',
-        title: 'Do the laundry',
-        status: 'postponed',
-      },
-    ]
-  );
+  const [todos, setTodos] = useState<TodoType[]| null>([]);
+ 
+
+  useEffect( ()=>  {
+      let localTodos = JSON.parse(localStorage.getItem("todos"));
+      console.log(localTodos);
+      if (localTodos) {
+        console.log('noo');
+        setTodos(localTodos);
+      }
+  }, []);
 
   return (
     <>
