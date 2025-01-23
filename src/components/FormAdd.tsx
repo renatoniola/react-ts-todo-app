@@ -1,12 +1,16 @@
 import { useState } from 'react';
+import { useTodosContext } from '../state/todosContext';
 import H1 from './H1';
+
+
 
 function FormAdd() {
 
-    function handleSubmit(e: any) {
+    const { todos, setTodos } = useTodosContext();
 
+    function handleSubmit(e: any) {
         e.preventDefault();
-        console.log(form);
+        setTodos([...todos, form]);
     }
 
     const [form, setForm] = useState({

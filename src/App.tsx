@@ -1,9 +1,41 @@
+import { useState } from 'react'
 import './App.css'
 import Todos from './components/Todos'
 import Box from './components/Box'
 import FormAdd from './components/FormAdd'
+import { TodosContext } from './state/todosContext';
+import TodoType from './types/TodoType'
 
 function App() {
+
+  const [todos, setTodos] = useState<TodoType[]>(
+    [
+      {
+        id: 1,
+        icon: 'sun',
+        title: 'Do the laundry2',
+        status: 'postponed',
+      },
+      {
+        id: 2,
+        icon: 'moon',
+        title: 'Do the laundry',
+        status: 'postponed',
+      },
+      {
+        id: 3,
+        icon: 'sun',
+        title: 'Do the laundry',
+        status: 'postponed',
+      },
+      {
+        id: 4,
+        icon: 'moon',
+        title: 'Do the laundry',
+        status: 'postponed',
+      },
+    ]
+  );
 
   return (
     <>
@@ -27,7 +59,7 @@ function App() {
               <li>
                 <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
               </li>
-             
+
             </ul>
           </div>
         </div>
@@ -35,9 +67,12 @@ function App() {
 
 
       <Box className="container mx-auto grid grid-cols-3 gap-60">
-        <div className="col-span-2"><Todos ></Todos></div>
-        <div className=""><FormAdd></FormAdd></div>
+        <TodosContext.Provider value={{todos, setTodos}}>
+          <div className="col-span-2"><Todos ></Todos></div>
+          <div className=""><FormAdd></FormAdd></div>
+        </TodosContext.Provider>
       </Box>
+
 
     </>
   )
