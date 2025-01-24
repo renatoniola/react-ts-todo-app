@@ -7,14 +7,13 @@ import TodoType from '../types/TodoType';
 
 function Todos() {
 
-    const headers = ['Todo', 'Status', 'Actions'];
     const { todos, setTodos } = useTodosContext();
 
     const removeTodo = (todoToRemove: number) => {
 
-       const newTodos = todos.filter((todo: TodoType) => todo.id !== todoToRemove);
-       localStorage.setItem("todos", JSON.stringify(newTodos));
-       setTodos(newTodos);
+        const newTodos = todos.filter((todo: TodoType) => todo.id !== todoToRemove);
+        localStorage.setItem("todos", JSON.stringify(newTodos));
+        setTodos(newTodos);
     }
 
     const editTodo = (todoItem: number) => {
@@ -30,11 +29,10 @@ function Todos() {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="px-6 py-3"></th>
-                            {headers.map((item) => {
-                                return <th scope="col" className="px-6 py-3">
-                                    {item}
-                                </th>
-                            })}
+                            <th scope="col" className="px-6 py-3">Todo</th>
+                            <th scope="col" className="px-6 py-3">Status</th>
+                            <th scope="col" className="pl-6 pr-9 py-3 text-right">Actions</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -53,10 +51,10 @@ function Todos() {
                                     </td>
 
                                     <td className="px-6 py-4 flex justify-end">
-                                        <LinkIcon onClick={() => editTodo(item.id) } name="Edit">
+                                        <LinkIcon onClick={() => editTodo(item.id)} name="Edit">
                                             <Icon type="edit"></Icon>
                                         </LinkIcon>
-                                        <LinkIcon onClick={() => removeTodo(item.id) } name="Delete">
+                                        <LinkIcon onClick={() => removeTodo(item.id)} name="Delete">
                                             <Icon type="delete"></Icon>
                                         </LinkIcon>
                                     </td>

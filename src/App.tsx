@@ -12,11 +12,11 @@ function App() {
  
 
   useEffect( ()=>  {
+      console.log('reload');
       let localTodos = JSON.parse(localStorage.getItem("todos"));
-      console.log(localTodos);
+      
       if (localTodos) {
-        console.log('noo');
-        setTodos(localTodos);
+         setTodos(localTodos);
       }
   }, []);
 
