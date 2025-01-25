@@ -14,9 +14,14 @@ function FormAdd() {
 
         let titleStatus = form.title === '' ? true : false;
         let statusStatus = form.status === '' ? true : false;
+        let typeStatus = form.type === '' ? true : false;
 
-        setBlur({...blurState, status: statusStatus, title: titleStatus});
-        if(titleStatus || statusStatus) {
+        setBlur({...blurState, status: statusStatus, title: titleStatus, type: typeStatus});
+        if(
+            titleStatus || 
+            statusStatus ||
+            typeStatus 
+        ) {
             return
         }
 
@@ -27,13 +32,15 @@ function FormAdd() {
 
     const [form, setForm] = useState({
         title: "",
-        status: ""
+        status: "",
+        type: "",
     });
 
 
     const [blurState, setBlur] = useState({
         'title': false,
-        'status': false
+        'status': false,
+        'type': false,
     });
     
    function handleInputBlur(e: any) {
@@ -72,7 +79,7 @@ function FormAdd() {
                 <div> {blurState.title && <p>title is invalid</p>}</div>
 
 
-                <label htmlFor="countries" className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                <label htmlFor="status" className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
                 <select 
                     id="status"      
                     onChange={handleChange}
@@ -84,6 +91,18 @@ function FormAdd() {
                     <option value="completed">Completed</option>
                 </select>
                 <div> {blurState.status && <p>title is invalid</p>}</div>
+
+                <label htmlFor="type" className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                <select 
+                    id="type"      
+                    onChange={handleChange}
+                    onBlur={handleInputBlur} 
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">Select Type</option>
+                    <option value="call">Phone call</option>
+                    <option value="shopping">Shopping</option>
+                </select>
+                <div> {blurState.type && <p>type is invalid</p>}</div>
 
                 <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mt-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SAVE</button>
             </form>

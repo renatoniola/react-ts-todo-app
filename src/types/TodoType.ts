@@ -1,6 +1,6 @@
 type TodoType = {
     id: number;
-    icon: string;
+    type: string;
     title: string;
     status: string;
 }
