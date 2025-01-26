@@ -2,7 +2,7 @@ import H1 from './H1';
 import Icon from './Icon';
 import LinkIcon from './LinkIcon';
 import { lazy, Suspense, useState } from 'react';
-const NewTodo = lazy(() => import('./NewTodo'));
+const TodoForm = lazy(() => import('./TodoForm'));
 
 import { useTodosContext } from '../state/todosContext';
 import TodoType from '../types/TodoType';
@@ -12,8 +12,9 @@ import TodoType from '../types/TodoType';
 function Todos() {
 
     const { todos, setTodos } = useTodosContext();
-    const [ showNewTodo, setShowNewTodo ] = useState(false);
-    const [ selectedTodo, setSelectedTodo ] = useState(0);
+    const [showNewTodo, setShowNewTodo] = useState(false);
+    const [selectedTodo, setSelectedTodo] = useState({});
+    const [typeForm, setTypeForm] = useState({});
 
     const removeTodo = (todoToRemove: number) => {
 
@@ -22,15 +23,19 @@ function Todos() {
         setTodos(newTodos);
     }
 
-    const editTodo = (todoItem: number) => {
-        if ( todoItem !== 0) {
-            setSelectedTodo(todoItem);
-            setShowNewTodo(true);
+    const showTodoForm = (todoItem: number | null, typeForm: string) => {
+        setTypeForm(typeForm);
+
+        if (todoItem) {
+            const todo = todos.filter((todo: TodoType) => todo.id === todoItem)
+            setSelectedTodo(todo[0]);
         }
-        
+        setShowNewTodo(true);
+
     }
 
     const closeModal = () => {
+        setSelectedTodo({});
         setShowNewTodo(false);
     }
 
@@ -38,9 +43,10 @@ function Todos() {
         <>
 
             <H1 className="">Todos:</H1>
+            <button onClick={() => showTodoForm(null, 'new')} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">New Todo</button>
             {showNewTodo &&
                 <Suspense fallback={<span>loading</span>}>
-                    <NewTodo selectedTodo={selectedTodo} onClick={closeModal}></NewTodo>
+                    <TodoForm selectedTodo={selectedTodo} onClose={closeModal} typeForm={typeForm}></TodoForm>
                 </Suspense>
             }
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -70,7 +76,7 @@ function Todos() {
                                     </td>
 
                                     <td className="px-6 py-4 flex justify-end">
-                                        <LinkIcon onClick={() => editTodo(item.id)} name="Edit">
+                                        <LinkIcon onClick={() => showTodoForm(item.id, 'edit')} name="Edit">
                                             <Icon type="edit"></Icon>
                                         </LinkIcon>
                                         <LinkIcon onClick={() => removeTodo(item.id)} name="Delete">
