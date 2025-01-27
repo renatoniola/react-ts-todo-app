@@ -2,11 +2,10 @@ import H1 from './H1';
 import Icon from './Icon';
 import LinkIcon from './LinkIcon';
 import { lazy, Suspense, useState } from 'react';
-const TodoForm = lazy(() => import('./TodoForm'));
-
 import { useTodosContext } from '../state/todosContext';
 import TodoType from '../types/TodoType';
 
+const TodoForm = lazy(() => import('./TodoForm'));
 
 
 function Todos() {

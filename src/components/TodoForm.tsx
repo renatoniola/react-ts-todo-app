@@ -10,6 +10,13 @@ type Props = {
     typeForm: string
 }
 
+const initialForm = {
+    id: 0,
+    title: "",
+    status: "",
+    type: "",
+}
+
 function NewTodo({ selectedTodo, onClose, typeForm }: Props) {
 
     const { todos, setTodos } = useTodosContext();
@@ -42,6 +49,7 @@ function NewTodo({ selectedTodo, onClose, typeForm }: Props) {
             let newTodos = [...todos, { ...form, id: getHighestId(todos) + 1 }];
             localStorage.setItem("todos", JSON.stringify(newTodos));
             setTodos(newTodos);
+            setForm(initialForm);
         }
 
         if (typeForm === 'edit') {
@@ -54,12 +62,7 @@ function NewTodo({ selectedTodo, onClose, typeForm }: Props) {
         }
     }
 
-    const [form, setForm] = useState({
-        id: 0,
-        title: "",
-        status: "",
-        type: "",
-    });
+    const [form, setForm] = useState(initialForm);
 
 
     const [blurState, setBlur] = useState({
