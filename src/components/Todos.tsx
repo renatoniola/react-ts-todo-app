@@ -4,6 +4,7 @@ import LinkIcon from './LinkIcon';
 import { lazy, Suspense, useState } from 'react';
 import { useTodosContext } from '../state/todosContext';
 import TodoType from '../types/TodoType';
+import Button from './Button';
 
 const TodoForm = lazy(() => import('./TodoForm'));
 
@@ -42,7 +43,7 @@ function Todos() {
         <>
 
             <H1 className="">Todos:</H1>
-            <button onClick={() => showTodoForm(null, 'new')} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">New Todo</button>
+            <Button onClick={() => showTodoForm(null, 'new')}>New Todo</Button>
             {showNewTodo &&
                 <Suspense fallback={<span>loading</span>}>
                     <TodoForm selectedTodo={selectedTodo} onClose={closeModal} typeForm={typeForm}></TodoForm>
