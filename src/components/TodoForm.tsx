@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTodosContext } from '../state/todosContext';
 import { getHighestId } from '../Services/Util';
-import H1 from './H1';
 import TodoType from '../types/TodoType';
+import H1 from './H1';
+import Icon from './Icon';
+import Button from './Button';
 
 type Props = {
     selectedTodo: TodoType;
@@ -53,7 +55,7 @@ function NewTodo({ selectedTodo, onClose, typeForm }: Props) {
         }
 
         if (typeForm === 'edit') {
-            const objIndex = todos.findIndex(( obj: TodoType)  => obj.id == selectedTodo.id);
+            const objIndex = todos.findIndex((obj: TodoType) => obj.id == selectedTodo.id);
             todos[objIndex] = form;
 
             localStorage.setItem("todos", JSON.stringify(todos));
@@ -92,13 +94,13 @@ function NewTodo({ selectedTodo, onClose, typeForm }: Props) {
     }
 
     return (
-        <div id="crud-modal" className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-items-center content-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-stone-600 bg-opacity-60">
+        <div id="crud-modal" className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-items-center content-center items-center w-full md:inset-0 h-full max-h-full bg-stone-600 bg-opacity-60">
             <div className="relative p-4 w-full max-w-md max-h-full">
                 <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 p-10">
 
-                    <button onClick={onClose}>X</button>
+                    <div className="flex justify-end"><button onClick={onClose}><Icon type="close"></Icon></button></div>
 
-                    <H1>{typeForm === 'new' ? 'Add new todo' : 'Edit Todo' }</H1>
+                    <H1>{typeForm === 'new' ? 'Add new todo' : 'Edit Todo'}</H1>
                     <form onSubmit={handleSubmit}>
                         <input id="id" value={form.id} type="hidden"></input>
                         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
@@ -140,7 +142,10 @@ function NewTodo({ selectedTodo, onClose, typeForm }: Props) {
                         </select>
                         <div> {blurState.type && <p>type is invalid</p>}</div>
 
-                        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mt-6 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SAVE</button>
+                        <div className="flex justify-end mt-5">
+                            <Button onClick={onClose} type="button" >cancel</Button>
+                            <Button >SAVE</Button>
+                        </div>
 
                     </form>
                 </div>
