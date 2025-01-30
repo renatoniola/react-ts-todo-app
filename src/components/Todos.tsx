@@ -1,10 +1,10 @@
-import H1 from './H1';
-import Icon from './Icon';
-import LinkIcon from './LinkIcon';
+import H1 from './UI/H1';
+import Icon from './UI/Icon';
+import LinkIcon from './UI/LinkIcon';
 import { lazy, Suspense, useState } from 'react';
-import { useTodosContext } from '../state/todosContext';
+import { useTodosContext } from '../context/todosContext';
 import TodoType from '../types/TodoType';
-import Button from './Button';
+import Button from './UI/Button';
 
 const TodoForm = lazy(() => import('./TodoForm'));
 

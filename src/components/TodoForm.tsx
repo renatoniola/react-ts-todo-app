@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useTodosContext } from '../state/todosContext';
-import { getHighestId } from '../Services/Util';
+import { useTodosContext } from '../context/todosContext';
+import { getHighestId } from '../utils/utils';
 import TodoType from '../types/TodoType';
-import H1 from './H1';
-import Icon from './Icon';
-import Button from './Button';
+import H1 from './UI/H1';
+import Icon from './UI/Icon';
+import Button from './UI/Button';
 
 type Props = {
     selectedTodo: TodoType;

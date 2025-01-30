@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Todos from './components/Todos'
-import Box from './components/Box'
-import { TodosContext } from './state/todosContext';
+import Box from './components/UI/Box'
+import { TodosContext } from './context/todosContext';
 import TodoType from './types/TodoType'
 
 function App() {
